@@ -2,9 +2,9 @@ clear all
 clc
 close all
 
-wrkdir = 'C:\Users\vhh04855\Documents\Idiealized_cases\DEM_create_';
+wrkdir = 'C:\Users\vhh04855\Documents\Idiealized_cases\DEM_create_'; % change accordingly
 %% base profile
-prof = load('C:\Users\vhh04855\OneDrive - University of Florida\data_and_example_code\Bar_v9data_NEW.mat','x','z');
+ load(fullfile(wrkdir,'profiles_Duck'));
 %
 len_y   = 1000;
 xres    = 5;
