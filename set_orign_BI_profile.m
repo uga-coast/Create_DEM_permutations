@@ -7,7 +7,7 @@ load(fname)
 
 %%
 Barri_x = xq ;
-zqt     = zq(5,:);
+zqt     = mean(zq);
 Barri_z = smooth(zqt,50)';
 
 figure
@@ -32,7 +32,7 @@ h_bi        =  Barri_z(hidx);
 
 L1       = [Barri_x;Barri_z];
 L2       = [x_base; b_base];
-intb     = InterX(L1,L2);
+intb     = Func_InterX(L1,L2);
 
 dif  = intb(1,:)- xbarr_mid;
 idf  =  dif<0; % intersection locations at front
@@ -79,7 +79,7 @@ L2       = [x_base; b_base];
 [~,hidx ]  = min(abs( Barri_zq-h_bi)); % find the index of the new mid/height loc
 h_bi       = Barri_zq(hidx); % barrier height after interpolation 
 xbarr_mid  = Barri_xq(hidx); % barrier mid after interpolation and coord change
-intw       = InterX(L1,L2);
+intw       = Func_InterX(L1,L2);
 
 dif      = intw(1,:)- xbarr_mid;
 idf      =  dif<0; % intersection locations at front
@@ -103,6 +103,8 @@ hold on; grid on; box on
 plot(Barri_xq,Barri_zq,'k')
 plot(Barri_xq(hidx),Barri_zq(hidx),'or')
 plot(Barri_xq(lfx:lbx),zeros(1,numel(Barri_xq(lfx:lbx))),'r')
+xlabel('Cross-shore [m]')
+ylabel('Elevation [m]')
 %% 
 
 Barri.zOrg      = Barri_zq - b_basez;
@@ -113,9 +115,8 @@ Barri.hidx      = hidx;
 Barri.w_bi      = w_bi;
 
 
-fname = fullfile(datadir,'Origin_BI_data_3.mat');
-load(fname)
-save(fname,'Barri')
+fname = fullfile(datadir,'Origin_BI_data_8.mat');
+% save(fname,'Barri')
 
 
 

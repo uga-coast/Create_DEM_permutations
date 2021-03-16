@@ -1,7 +1,8 @@
 function [base_data] = Func_setup_base_profile(len_y, xres, yres, r_norm, r_base, zthresh, datadir)
 
-duck_base   = 0; 
-panama_base = 1; 
+duck_base           = 0; 
+panama_base         = 1; 
+conseptual_beach    = 0;
 if (duck_base ==1)
     load(fullfile(datadir,'profiles_Duck'));
     prtrans = 19;
@@ -17,10 +18,21 @@ if (duck_base ==1)
     
 elseif (panama_base ==1)
     load(fullfile(datadir,'panama_base_beach.mat'));
-    zq  = z_vals; 
-    idx = xq<4500;
-    xq  = xq(idx);
-    zq  = zq(idx);
+    zq      = z_vals; 
+    idx     = xq<4500;
+    xq1     = xq(idx);
+    zq1     = zq(idx);
+    len_x   = xq(end);
+    xqint   = linspace(xq1(1),xq1(end),ceil(len_x/xres)+1);    
+    zq      = interp1(xq1,zq1,xqint,'spline');    
+    xq      = xqint;
+    
+elseif (conseptual_beach ==1)
+%  off_depth   = -20; 
+%  
+%  beach_slope = 1/200;    
+%  xq          = linspace(0,)
+    
 end
 
 yq              = linspace(0,len_y,ceil(len_y/yres)+1);
